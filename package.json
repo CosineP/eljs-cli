@@ -1,0 +1,14 @@
+{
+  "name": "eljs",
+  "version": "1.0.0",
+  "description": "run ElementaryJS, the UMass 220 thing, on the cli",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "cosine",
+  "license": "ISC",
+  "dependencies": {
+    "@stopify/elementary-js": "file:../ElementaryJS"
+  }
+}
