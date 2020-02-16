@@ -14,35 +14,57 @@ function version() {
     };
 }
 
-let whitelistCode = {};
+// returns whitelistCode
 async function loadLibraries() {
 
-	// This was a fetch but uhhh no
-    // https://github.com/umass-compsci220/Ocelot/blob/0ec94a3280d657e985961203c81fffcf13777624/frontend/src/secrets.ts
-    const wl = {
-        "lib220": "https://raw.githubusercontent.com/umass-compsci220/ocelot-settings/master/dist/lib220.js",
-        "oracle": "https://raw.githubusercontent.com/umass-compsci220/ocelot-settings/master/dist/oracle.js",
-        "rrt": "https://raw.githubusercontent.com/umass-compsci220/ocelot-settings/master/dist/rrt.js"
-    };
+    const DAYS_TO_FETCH = 30;
+    const WRITE_TO = __dirname + '/.eljs-libraries.json';
+    let cache = undefined;
+    try {
+        const cacheFile = fs.readFileSync(WRITE_TO, 'utf8');
+        cache = JSON.parse(cacheFile);
+    // silently fail otherwise
+    } catch (e) {}
+    if (!cache || cache.date + new Date(0, 0, DAYS_TO_FETCH) < Date.now()) {
 
-    for (const module in wl) {
-        let prom = new Promise((resolve, reject) => {
-            https.get(wl[module], res => {
-                let val = '';
-                res.on('data', data => {
-                    val += data;
+        console.log("Refetching libraries....");
+
+        // This was a fetch but uhhh no
+        // https://github.com/umass-compsci220/Ocelot/blob/0ec94a3280d657e985961203c81fffcf13777624/frontend/src/secrets.ts
+        const wl = {
+            "lib220": "https://raw.githubusercontent.com/umass-compsci220/ocelot-settings/master/dist/lib220.js",
+            "oracle": "https://raw.githubusercontent.com/umass-compsci220/ocelot-settings/master/dist/oracle.js",
+            "rrt": "https://raw.githubusercontent.com/umass-compsci220/ocelot-settings/master/dist/rrt.js"
+        };
+
+        for (const module in wl) {
+            let prom = new Promise((resolve, reject) => {
+                https.get(wl[module], res => {
+                    let val = '';
+                    res.on('data', data => {
+                        val += data;
+                    });
+                    res.on('end', () => {
+                        resolve(val);
+                    });
+                }).on('error', err => {
+                    reject(err);
                 });
-                res.on('end', () => {
-                    resolve(val);
-                });
-            }).on('error', err => {
-                reject(err);
             });
-        });
-        wl[module] = await prom;
-    }
+            wl[module] = await prom;
+        }
 
-    whitelistCode = wl;
+        const toFile = {date: Date.now(), libraries: wl};
+
+        fs.writeFileSync(WRITE_TO, JSON.stringify(toFile));
+
+        return wl;
+
+    } else {
+
+        return cache.libraries;
+
+    }
 }
 
 function opts() {
@@ -59,8 +81,12 @@ const p = fs.readFileSync(path, 'utf8');
 
 
 console.log('Compiling...');
-loadLibraries().then(() => {
-    const runner = elementaryJS.compile(p, opts());
+loadLibraries().then((whitelistCode) => {
+    const runner = elementaryJS.compile(p, {
+        consoleLog: console.log,
+        version,
+        whitelistCode,
+    });
     if (runner.kind === 'error') {
         for (const err of runner.errors) {
             console.error(`Line ${err.line}: ${err.message}`);
