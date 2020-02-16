@@ -62,7 +62,9 @@ console.log('Compiling...');
 loadLibraries().then(() => {
     const runner = elementaryJS.compile(p, opts());
     if (runner.kind === 'error') {
-        console.error("whoops error TODO");
+        for (const err of runner.errors) {
+            console.error(`Line ${err.line}: ${err.message}`);
+        }
         return;
     }
     console.log('Compilation succesful.');

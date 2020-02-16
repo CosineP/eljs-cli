@@ -42,7 +42,7 @@ well boy have i got news for you!
 introducing eljs!  
 a command line interface for the compiler that Ocelot uses
 
-bonus points!! if you don't have access to the damn signup thing, you can use your filesystem to save your files, like it was fucking made for. so go ahead and download today!  
+bonus points!! if you don't have access to the damn signup thing, you can use your filesystem to save your files. so go ahead and download today!  
 eljs!  
 tell your friends!  
 
