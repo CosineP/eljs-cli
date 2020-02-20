@@ -13,6 +13,15 @@ first make sure you have node installed, try [nvm](https://github.com/nvm-sh/nvm
 
     node index.js <testing | running> <file>
 
+## alternatives
+
+there is a
+[script provided by ElementaryJS](https://github.com/plasma-umass/ElementaryJS/blob/master/eval/compileAndRun.js)
+which can run programs, but does not currently support running tests. in
+the issues you can find a
+**[usage guide]**(https://github.com/CosineP/eljs-cli/issues/1#issuecomment-586819704)
+(and the attached thread explains more about the two options).
+
 ## future
 
 - im aware that the interface sucks. for now i have some aliases like:
