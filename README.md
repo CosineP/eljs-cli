@@ -1,7 +1,7 @@
 eljs: CLI for elementaryJS (Ocelot)
 ===================================
 
-> run elementaryJS from the comfort of ur CLI instead of the Ocelot Web IDE
+> test and run elementaryJS from the comfort of ur CLI instead of the Ocelot Web IDE
 
 ## installation
 
@@ -19,7 +19,7 @@ there is a
 [script provided by ElementaryJS](https://github.com/plasma-umass/ElementaryJS/blob/master/eval/compileAndRun.js)
 which can run programs, but does not currently support running tests. in
 the issues you can find a
-**[usage guide]**(https://github.com/CosineP/eljs-cli/issues/1#issuecomment-586819704)
+**[usage guide](https://github.com/CosineP/eljs-cli/issues/1#issuecomment-586819704)**
 (and the attached thread explains more about the two options).
 
 ## future
