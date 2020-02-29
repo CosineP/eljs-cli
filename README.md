@@ -1,57 +1,55 @@
-eljs: CLI for elementaryJS (Ocelot)
-===================================
+redundant / discontinued
+========================
 
-> test and run elementaryJS from the comfort of ur CLI instead of the Ocelot Web IDE
+## prefer the script now provided by ElementaryJS
 
-## installation
+> elementaryJS now supports running and testing from the CLI
 
-first make sure you have node installed, try [nvm](https://github.com/nvm-sh/nvm)
+## instructions to use ElementaryJS CLI
 
-    npm isntall
+**[adapted from @sp1tz's help](https://github.com/CosineP/eljs-cli/issues/1#issuecomment-586819704)**
 
-## running
+1. `git clone https://github.com/plasma-umass/ElementaryJS`
+2. `git checkout test-mode` for testing support
+2. install yarn (`yarnpkg` on debian) and run `yarn install && yarn build`
+2. `cd eval/` and run `./fetchLibs.sh`.
+3. Update all three libraries (`eval/libs/`) so that `module.exports` is set to the top-level function.
 
+    For example:
+    ```js
+    function lib220(config) {
+      ...
+    }
+    ```
+    now becomes:
+    ```js
+    module.exports = function lib220(config) {
+      ...
+    };
+    ```
+
+4.  "watch" [this repo](https://github.com/umass-compsci220/ocelot-settings)
+to know if you have to refetch the libs
+5. Run your script: `node <ejs path>/eval/eval.js <script path> [1]`.
+
+    the `1` indicates to run tests, leaving it out (*not* `0`) executes the
+    script without tests
+
+[history / more info](https://github.com/CosineP/eljs-cli/issues/1)
+
+## convenience
+
+i have the following in my bashrc for convenience:
+
+    alias eljs='node ~/src/ElementaryJS/eval/eval.js'
+    function teljs() {
+        eljs "$@" 1
+    }
+
+which are used like `eljs hw3.js` (to run) and `teljs hw3.js` (to test)
+
+## archived script usage
+
+    npm install
     node index.js <testing | running> <file>
-
-## alternatives
-
-there is a
-[script provided by ElementaryJS](https://github.com/plasma-umass/ElementaryJS/blob/master/eval/compileAndRun.js)
-which can run programs, but does not currently support running tests. in
-the issues you can find a
-**[usage guide](https://github.com/CosineP/eljs-cli/issues/1#issuecomment-586819704)**
-(and the attached thread explains more about the two options).
-
-## future
-
-- im aware that the interface sucks. for now i have some aliases like:
-
-
-        alias eljs='node ~/src/eljs/index.js running "$@"'
-        alias teljs='node ~/src/eljs/index.js testing "$@"'
-
-- images!! we've been using images a lot but im not sure how i want to include
-them in a CLI like maybe opening them in ImageMagick or something. it'll
-probly require modifying lib220 which is no big deal cause it's like 20
-lines of code and i know where it is
-
-if you want to help feel free to submit a PR, we're all casual here. you can
-also message me any way you know how / open an issue if you have questions /
-want to talk about it
-
-## pitch
-
-*[greyscale TV commercial]*  
-tired of using boring old arrow keys?  
-tired of installing google chrome when you already use firefox?  
-tired of the ol' Ocelot point and click adventure?  
-tired of chrome eating up all your RAM?  
-*[commercial turns to color]*  
-well boy have i got news for you!  
-introducing eljs!  
-a command line interface for the compiler that Ocelot uses
-
-bonus points!! if you don't have access to the damn signup thing, you can use your filesystem to save your files. so go ahead and download today!  
-eljs!  
-tell your friends!  
 
