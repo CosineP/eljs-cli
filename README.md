@@ -10,10 +10,9 @@ redundant / discontinued
 **[adapted from @sp1tz's help](https://github.com/CosineP/eljs-cli/issues/1#issuecomment-586819704)**
 
 1. `git clone https://github.com/plasma-umass/ElementaryJS`
-2. `git checkout test-mode` for testing support
 2. install yarn (`yarnpkg` on debian) and run `yarn install && yarn build`
-2. `cd eval/` and run `./fetchLibs.sh`.
-3. Update all three libraries (`eval/libs/`) so that `module.exports` is set to the top-level function.
+2. `cd eval` and run `./fetchLibs.sh`
+3. Update all three libraries (`eval/libs/`) so that `module.exports` is set to the top-level function
 
     For example:
     ```js
@@ -30,7 +29,7 @@ redundant / discontinued
 
 4.  "watch" [this repo](https://github.com/umass-compsci220/ocelot-settings)
 to know if you have to refetch the libs
-5. Run your script: `node <ejs path>/eval/eval.js <script path> [1]`.
+5. Run your script: `node <ejs path>/eval/eval.js <script path> [1]`
 
     the `1` indicates to run tests, leaving it out (*not* `0`) executes the
     script without tests
